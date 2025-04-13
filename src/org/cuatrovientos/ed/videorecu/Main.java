@@ -9,25 +9,44 @@ public class Main {
 		Double numero1;
 		Double numero2;
 		Double resultado;
+		boolean entradaValida;
 		
-		System.out.println("CALCULADORA SIMPLE");
-		System.out.println("¿Qué tipo de operación quieres realizar?");
-		System.out.print("Suma / Resta / Multiplicacion / Division: ");
-		
-		tipoOperacion = scanner.nextLine();
-		
-		System.out.print("Introduce el número 1: ");
-		
-		numero1 = scanner.nextDouble();
-		
-		System.out.print("Introduce el número 2: ");
-		
-		numero2 = scanner.nextDouble();
-		
-		Calculadora operacion = new Calculadora();
-		resultado = operacion.calcular(tipoOperacion, numero1, numero2);
-		
-		System.out.print("Resultado: " + resultado);
+		System.out.print("CALCULADORA SIMPLE");
+		do {
+            System.out.print("Operación (Suma/Resta/Multiplicacion/Division): ");
+            tipoOperacion = scanner.nextLine().trim().toLowerCase();
+            entradaValida = tipoOperacion.matches("suma|resta|multiplicacion|division");
+            if (!entradaValida) {
+                System.out.println("Operación no válida");
+            }
+        } while (!entradaValida);
+
+        do {
+            System.out.print("Introduce el número 1: ");
+            try {
+                numero1 = Double.parseDouble(scanner.nextLine());
+                entradaValida = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debe ser un número válido.");
+                entradaValida = false;
+            }
+        } while (!entradaValida);
+
+        do {
+            System.out.print("Introduce el número 2: ");
+            try {
+                numero2 = Double.parseDouble(scanner.nextLine());
+                if (tipoOperacion.equals("division") && numero2 == 0) {
+                    System.out.println("Error: No se puede dividir por cero.");
+                    entradaValida = false;
+                } else {
+                    entradaValida = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Debe ser un número válido.");
+                entradaValida = false;
+            }
+        } while (!entradaValida);
 	}
 
 }

@@ -13,7 +13,7 @@ public class Calculadora {
             case "division":
                 return num1 / num2;
             default:
-                throw new IllegalArgumentException(operacion + "no es válido");
+                throw new IllegalArgumentException(operacion + " no es válido");
         }
 	}
 }
